@@ -10,7 +10,12 @@ module.exports = {
   },
 
   included: function(app) {
+    if (this._findHost) {
+      app = this._findHost(); // Ensure we have the top-level app
+    }
+
     this._super.included(app);
+
     this.app.import(app.bowerDirectory + '/remarkable/dist/remarkable.js');
     this.app.import(app.bowerDirectory + '/highlightjs/highlight.pack.js');
     this.app.import('vendor/ember-remarkable/shim.js', {
